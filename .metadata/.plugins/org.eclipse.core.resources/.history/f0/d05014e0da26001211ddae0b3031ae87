@@ -1,0 +1,14 @@
+package week6
+
+object nqueens {
+	def queens(n: Int): Set[List[Int]] = {
+	  def placeQueens(k: Int): Set[List[Int]] = 
+	    if(k == 0) Set(List())
+	    else
+	      for {
+	        
+	      }
+	      
+	  placeQueens(n)
+	}
+}

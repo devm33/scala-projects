@@ -1,0 +1,62 @@
+package week6
+
+object nqueens {
+	def queens(n: Int): Set[List[Int]] = {
+	  def placeQueens(k: Int): Set[List[Int]] = 
+	    if(k == 0) Set(List())
+	    else
+	      for {
+	        queens <- placeQueens(k - 1)
+	        col <- 0 until n
+	        if isSafe(col, queens)
+	      } yield col :: queens
+	      
+	  placeQueens(n)
+	}
+	
+	def isSafe(col: Int, queens: List[Int]): Boolean = {
+	  val row = queens.length
+	  val queensWithRow = (row - 1 to 0 by -1) zip queens
+	  queensWithRow forall {
+	    case (r, c) => col != c && math.abs(col - c) != row - r
+	  }
+	}
+	/**
+	 * isSafe - returns true if the column is safe to put a queen in the queens.length row
+	 * 
+	 * ---------------------    ---------------------    ---------------------
+	 * |4QS||0|||1|||2|||3||    |r-c||0|||1|||2|||3||    |r+c||0|||1|||2|||3||
+	 * ---------------------    ---------------------    ---------------------
+	 * ||0||   | Q |   |   |    ||0|| 0 |-1 |-2 |-3 |    ||0|| 0 | 1 | 2 | 3 |
+	 * ---------------------    ---------------------    ---------------------
+	 * ||1||   |   |   | Q |    ||1|| 1 | 0 |-1 |-2 |    ||1|| 1 | 2 | 3 | 4 |
+	 * ---------------------    ---------------------    ---------------------
+	 * ||2|| Q |   |   |   |    ||2|| 2 | 1 | 0 |-1 |    ||2|| 2 | 3 | 4 | 5 |
+	 * ---------------------    ---------------------    ---------------------
+	 * ||3||   |   | ? |   |    ||3|| 3 | 2 | 1 | 0 |    ||3|| 3 | 4 | 5 | 6 |
+	 * ---------------------    ---------------------    ---------------------
+	 * In this example:
+	 * col = 3 (implicitly row = 4 -> (r, c) = (4, 3)
+	 * queens = List(2, 0, 1) 
+	 * 
+	 * We need to insure that
+	 *  - no Q in same col (aka col is not in queens)
+	 *  - no Q in same row (given)
+	 *  - no Q in diagonal
+	 *    + no Q(R) = C s.t. R-C == row - col
+	 *    + no Q(R) = C s.t. R+C == row + col
+	 * 
+	 */
+	def my_isSafe(col: Int, queens: List[Int]): Boolean = 
+	  (for {
+	    r <- (1 until queens.length)
+	    if (r - queens(r) == queens.length - col || 
+	        r + queens(r) == queens.length + col || 
+	        queens(r) == col)
+	  } yield 1).isEmpty
+	  
+}
+
+object Main extends App {
+  println queens(4)
+}

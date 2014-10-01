@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Delete resource &apos;worksheet/src/week4/covariance.sc&apos;" deleteContents="false" description="Delete resource &apos;worksheet/src/week4/covariance.sc&apos;" element1="/worksheet/src/week4/covariance.sc" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1351391634166"/>
+</session>
